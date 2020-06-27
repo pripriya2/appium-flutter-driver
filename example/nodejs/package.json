@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "appium-flutter-driver": "0.0.24-1",
     "appium-flutter-finder": "^0.0.21",
     "webdriverio": "^5.11.5"
   },

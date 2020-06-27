@@ -30,8 +30,7 @@ void main() {
       final h = await driver.checkHealth();
       expect(h.status, HealthStatus.ok);
       await driver.clearTimeline();
-      final renderObject = await driver.getRenderObjectDiagnostics(counterTextFinder, subtreeDepth: 2, includeProperties: true);
-      
+
       // Use the `driver.getText` method to verify the counter starts at 0.
       expect(await driver.getText(counterTextFinder), "0");
       await driver.getBottomLeft(counterTextFinder);
@@ -59,12 +58,17 @@ void main() {
       await driver.waitForAbsent(find.byTooltip('counter_tooltip'));
       expect(await driver.getText(find.text('This is 2nd route')),
           'This is 2nd route');
-      await driver.scrollUntilVisible(find.byType('ListView'), find.byType('TextField'), dxScroll: 90, dyScroll: -400);
-      await driver.scroll(find.byType('ListView'), 50, 100, Duration(milliseconds: 200), frequency: 30);
+      await driver.scrollUntilVisible(
+          find.byType('ListView'), find.byType('TextField'),
+          dxScroll: 90, dyScroll: -400);
+      await driver.scroll(
+          find.byType('ListView'), 50, 100, Duration(milliseconds: 200),
+          frequency: 30);
       await driver.scrollIntoView(find.byType('ListView'), alignment: 1.4);
       await driver.tap(find.byType('TextField'));
       await driver.enterText('I can enter text');
-      await driver.waitFor(find.text('I can enter text'));  // verify text appears on UI
+      await driver
+          .waitFor(find.text('I can enter text')); // verify text appears on UI
 
       await driver.tap(find.pageBack());
       await driver.waitFor(find.byTooltip('counter_tooltip'));
