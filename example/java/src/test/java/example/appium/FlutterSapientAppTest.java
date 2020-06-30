@@ -23,16 +23,11 @@ public class FlutterSapientAppTest extends BaseDriver {
     find = new FlutterFinder(driver);
   }
   @Test
-  public void basicTest () throws InterruptedException {
-//	  MobileElement emailField = find.text("Email");
-//	  MobileElement passwordField = find.text("Password");
-//	  emailField.click();
-//	  emailField.sendKeys("recentfavuser@yopmail.com");
-	  
+  public void loginTest () throws InterruptedException {
+
     MobileElement counterTextFinder = find.text("Email");
     MobileElement buttonFinder = find.text("Password");
 
-   // validateElementPosition(buttonFinder);
 
     assertEquals(driver.executeScript("flutter:checkHealth"), "ok");
     driver.executeScript("flutter:clearTimeline");
@@ -54,7 +49,6 @@ public class FlutterSapientAppTest extends BaseDriver {
       "flutter:getSemanticsId",
       counterTextFinder
     );
-//    assertEquals(semanticsId, 4L);
 
     String treeString = (String) driver.executeScript("flutter: getRenderTree");
     assertEquals(treeString.substring(0, 11), "RenderView#");
@@ -68,66 +62,18 @@ public class FlutterSapientAppTest extends BaseDriver {
     File f2 = driver.getScreenshotAs(OutputType.FILE);
     f2.renameTo(new File("./flutter-screenshot.png"));
 
-//    assertEquals(counterTextFinder.getText(), "Email");
-
-//    buttonFinder.click();
-    // @todo tap not working?
-    // buttonFinder.tap(1, 100);
-//    buttonFinder.click();
     driver.executeScript("flutter:waitFor", find.byValueKey("email"));
     find.byValueKey("email").click();
-    find.byValueKey("email").click();
-    driver.executeScript("flutter:enterText", "I can enter text");
+//    find.byValueKey("email").click();
+    driver.executeScript("flutter:enterText", "recentfavuser@yopmail.com");
+    driver.executeScript("flutter:waitFor", find.byValueKey("password"));
+    find.byValueKey("password").click();
+//    find.byValueKey("password").click();
+    driver.executeScript("flutter:enterText", "Testing123");
+    driver.executeScript("flutter:waitFor", find.byValueKey("loginBtn"));
+    find.byValueKey("loginBtn").click();
     Thread.sleep(30000);
-//    find.byValueKey("email").sendKeys("I can enter text");
-    
-    
-    
-//    assertEquals(find.byValueKey("email").getText(), "I can enter text");
-//
-//    find.byTooltip("Increment").click();
-//
-//    assertEquals(find.descendant(find.byTooltip("counter_tooltip"), find.byValueKey("counter")).getText(), "3");
-//    
-//    find.byType("FlatButton").click();
-//    driver.executeScript("flutter:waitForAbsent", buttonFinder);
-//
-//    assertEquals(find.text("This is 2nd route").getText(), "This is 2nd route");
-//
-//    driver.executeScript("flutter:scrollUntilVisible", find.byType("ListView"), new HashMap<String, Object>() {{
-//      put("item", find.byType("TextField"));
-//      put("dxScroll", 90);
-//      put("dyScroll", -400);
-//    }});
-//
-//    driver.executeScript("flutter:scroll", find.byType("ListView"), new HashMap<String, Object>() {{
-//      put("item", find.byType("TextField"));
-//      put("dx", 50);
-//      put("dy", 100);
-//      put("durationMilliseconds", 200);
-//      put("frequency", 30);
-//    }});
-//    
-//    driver.executeScript("flutter:scrollIntoView", find.byType("ListView"), new HashMap<String, Object>() {{
-//      put("alignment", 0.1);
-//    }});
-//
-//    find.byType("TextField").sendKeys("I can enter text"); // enter text
-//    driver.executeScript("flutter:waitFor", find.text("I can enter text")); // verify text appears on UI
-//
-//    find.pageBack().click();
-//    driver.executeScript("flutter:waitFor", buttonFinder);
-//
-//    find.descendant(
-//      find.ancestor(
-//        find.bySemanticsLabel(Pattern.compile("counter_semantic")),
-//        find.byType("Tooltip")
-//        ),
-//      find.byType("Text")
-//      )
-//      .click()
-//      ;
-// 
+
     driver.quit();
   }
 
